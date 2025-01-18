@@ -89,11 +89,7 @@ if(UNIX)
         if(NOT LIBM)
             message(FATAL_ERROR "libm not found and is required by lua")
         endif()
-        # on 32-bit Android devices, `fseeko` and `ftello` are available from API level 24
-        # https://android.googlesource.com/platform/bionic/+/refs/heads/main/docs/32-bit-abi.md
-        if(NOT ANDROID OR ANDROID_PLATFORM GREATER_EQUAL 24 OR CMAKE_SIZEOF_VOID_P STREQUAL 8)
-            target_compile_definitions(lua_internal INTERFACE "LUA_USE_POSIX")
-        endif()
+        target_compile_definitions(lua_internal INTERFACE "LUA_USE_POSIX")
         target_link_libraries(lua_internal INTERFACE m)
         list(APPEND LUA_LINKED_LIBRARIES m)
         if(LUA_SUPPORT_DL)

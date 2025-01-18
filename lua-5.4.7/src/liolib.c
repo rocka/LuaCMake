@@ -115,7 +115,8 @@ static int l_checkmode (const char *mode) {
 
 #if !defined(l_fseek)		/* { */
 
-#if defined(LUA_USE_POSIX)	/* { */
+#if defined(LUA_USE_POSIX) && \
+   (!defined(ANDROID) || (defined(__LP64__) || ANDROID_PLATFORM >= 24))	/* { */
 
 #include <sys/types.h>
 
